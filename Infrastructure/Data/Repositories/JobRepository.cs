@@ -18,7 +18,7 @@ namespace Infrastructure.Data.Repositories
             return await _context.Jobs.ToListAsync();
         }
 
-        public async Task<Job> GetById(int id)
+        public async Task<Job> GetById(Guid id)
         {
             return await _context.Jobs.FindAsync(id);
         }
@@ -35,7 +35,7 @@ namespace Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Guid id)
         {
             var job = await _context.Jobs.FindAsync(id);
             if (job != null)

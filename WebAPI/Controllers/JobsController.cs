@@ -1,38 +1,36 @@
-﻿using Core.Entities;
-using Infrastructure.Data;
+﻿using Application.DTOs;
+using Application.UseCases.Job.Create;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/jobs")]
     [ApiController]
     public class JobsController : ControllerBase
     {
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Job>>> GetJobs()
-        //{
-        //}
+        private readonly IMediator _mediator;
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Job>> GetJob(int id)
-        //{
-        //}
+        public JobsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        //[HttpPost]
-        //public async Task<ActionResult<Job>> PostJob(Job job)
-        //{
-        //}
+        [HttpPost]
+        public async Task<IActionResult> CreateJob([FromBody] JobDTO jobDto)
+        {
+            var command = new CreateJobCommand { Job = jobDto };
+            var response = await _mediator.Send(command);
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutJob(int id, Job job)
-        //{
-        //}
-
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteJob(int id)
-        //{
-        //}
+            if (response.IsSuccess)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(response.Response);
+            }
+        }
     }
 }

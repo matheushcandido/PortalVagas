@@ -19,7 +19,7 @@ ConfigureInfrastructure.ConfigureMigrator(builder.Services, builder.Configuratio
 
 ConfigureInfrastructure.ConfigureRepositories(builder.Services);
 
-ConfigureApplication.ConfigureMapper(builder.Services);
+ConfigureInfrastructure.ConfigureMediatR(builder.Services);
 
 var app = builder.Build();
 

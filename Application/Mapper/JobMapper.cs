@@ -1,19 +1,13 @@
 ﻿using Application.DTOs;
-using AutoMapper;
 using Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Riok.Mapperly.Abstractions;
 
 namespace Application.Mapper
 {
-    public class JobMapper : Profile
+    [Mapper]
+    public partial class JobMapper
     {
-        public JobMapper()
-        {
-            CreateMap<Job, JobDTO>().ReverseMap();
-        }
+        public partial Job ViewModelToDomain(JobDTO dto);
+        public partial JobDTO DomainToViewModel(Job domain);
     }
 }
