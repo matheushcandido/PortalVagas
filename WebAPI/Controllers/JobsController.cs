@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.UseCases.Job.Create;
+using Application.UseCases.Job.List;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,15 +18,31 @@ namespace WebAPI.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var query = new ListJobsQuery();
+            var response = await _mediator.Send(query);
+
+            if (response.IsSuccess)
+            {
+                return Ok(response.Response);
+            }
+            else
+            {
+                return BadRequest(response.Response);
+            }
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateJob([FromBody] JobDTO jobDto)
+        public async Task<IActionResult> Create([FromBody] JobDTO jobDto)
         {
             var command = new CreateJobCommand { Job = jobDto };
             var response = await _mediator.Send(command);
 
             if (response.IsSuccess)
             {
-                return Ok();
+                return Ok(response.Response);
             }
             else
             {
