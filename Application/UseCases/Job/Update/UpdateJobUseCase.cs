@@ -1,12 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.RepositoriesInterfaces;
+using System.Net;
 
 namespace Application.UseCases.Job.Update
 {
-    public class UpdateJobUseCase
+    public class UpdateJobUseCase : IUpdateJobUseCase
     {
+        private readonly IJobRepository _repository;
+
+        public UpdateJobUseCase(IJobRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public async Task<UseCaseResponse<bool>> Handle(UpdateJobCommand request, CancellationToken cancellationToken)
+        {
+            if (request == null)
+            {
+                return UseCaseResponse<bool>.BadRequest("Peido inválido.");
+            }
+
+            var job = _repository.GetById(request.JobId);
+
+            if (job == null)
+            {
+                return UseCaseResponse<bool>.Fail("Vaga não encontrada.", HttpStatusCode.NotFound);
+            }
+
+            job.Result.Title = request.JobDTO.Title;
+
+            try
+            {
+                var response = await _repository.Update(await job);
+
+                return UseCaseResponse<bool>.Success(response);
+            } 
+            catch (Exception ex)
+            {
+                return UseCaseResponse<bool>.InternalServerError("Erro ao atualizar informações da vaga. Contate o administrador do sistema.");
+            }
+        }
     }
 }

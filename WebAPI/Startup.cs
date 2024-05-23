@@ -3,6 +3,7 @@ using FluentMigrator.Runner;
 using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,13 @@ ConfigureInfrastructure.ConfigureMigrator(builder.Services, builder.Configuratio
 ConfigureInfrastructure.ConfigureRepositories(builder.Services);
 
 ConfigureInfrastructure.ConfigureMediatR(builder.Services);
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyHeader();
+    builder.AllowAnyMethod();
+    builder.AllowAnyOrigin();
+}));
 
 var app = builder.Build();
 

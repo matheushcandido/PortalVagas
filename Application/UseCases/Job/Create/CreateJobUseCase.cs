@@ -37,7 +37,7 @@ namespace Application.UseCases.Job.Create
             }
             catch (Exception ex) 
             {
-                return UseCaseResponse<bool>.InternalServerError("Erro interno o inserir vaga. Contate o administrador");
+                return UseCaseResponse<bool>.InternalServerError("Erro interno o inserir vaga. Contate o administrador." + ex);
             }
         }
     }

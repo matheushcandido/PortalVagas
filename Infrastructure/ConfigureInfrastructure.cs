@@ -34,6 +34,7 @@ namespace Infrastructure
             services.AddTransient<CreateJobCommandValidator>();
             services.AddTransient<CreateJobCommand>();
             services.AddSingleton<JobMapper>();
+
         }
     }
 }

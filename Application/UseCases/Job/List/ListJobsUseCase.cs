@@ -26,7 +26,7 @@ namespace Application.UseCases.Job.List
             }
             catch (Exception ex)
             {
-                return UseCaseResponse<IEnumerable<JobDTO>>.InternalServerError("Erro ao obter vagas. Contate o administrador.");
+                return UseCaseResponse<IEnumerable<JobDTO>>.InternalServerError("Erro ao obter vagas. Contate o administrador." + ex);
             }
         }
     }

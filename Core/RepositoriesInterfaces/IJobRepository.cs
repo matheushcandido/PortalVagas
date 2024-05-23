@@ -9,10 +9,10 @@ namespace Core.RepositoriesInterfaces
 {
     public interface IJobRepository
     {
-        Task<IEnumerable<Job>> GetAll();
-        Task<Job> GetById(Guid id);
-        Task Add(Job job);
-        Task Update(Job job);
-        Task Delete(Guid id);
+        public Task<IEnumerable<Job>> GetAll();
+        public Task<Job> GetById(Guid id);
+        public Task Add(Job job);
+        public Task<Job> Update(Job job);
+        public Task Delete(Guid id);
     }
 }

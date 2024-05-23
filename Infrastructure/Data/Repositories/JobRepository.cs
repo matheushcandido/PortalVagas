@@ -29,10 +29,11 @@ namespace Infrastructure.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(Job job)
+        public async Task<Job> Update(Job job)
         {
             _context.Entry(job).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            return job;
         }
 
         public async Task Delete(Guid id)
