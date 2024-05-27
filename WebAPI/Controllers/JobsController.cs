@@ -4,10 +4,12 @@ using Application.UseCases.Job.GetById;
 using Application.UseCases.Job.List;
 using Application.UseCases.Job.Update;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     [Route("api/jobs")]
     [ApiController]
     public class JobsController : ControllerBase

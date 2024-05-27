@@ -22,6 +22,8 @@ ConfigureInfrastructure.ConfigureRepositories(builder.Services);
 
 ConfigureInfrastructure.ConfigureMediatR(builder.Services);
 
+ConfigureInfrastructure.ConfigureAuthentication(builder.Services, builder.Configuration);
+
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
     builder.AllowAnyHeader();
@@ -44,6 +46,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

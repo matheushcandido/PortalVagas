@@ -30,9 +30,11 @@ namespace Application.UseCases.Job.Update
 
             try
             {
-                var response = await _repository.Update(await job);
+                var updatedJob = await _repository.Update(await job);
 
-                return UseCaseResponse<bool>.Success(response);
+                bool success = updatedJob != null;
+
+                return UseCaseResponse<bool>.Success(success);
             } 
             catch (Exception ex)
             {
