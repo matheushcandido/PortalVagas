@@ -17,6 +17,7 @@ namespace Infrastructure
         public static void ConfigureRepositories(IServiceCollection services)
         {
             services.AddScoped<IJobRepository, JobRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         public static void ConfigureMigrator(IServiceCollection services, string connectionString)
